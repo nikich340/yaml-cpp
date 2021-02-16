@@ -52,7 +52,7 @@ void NodeEvents::Emit(EventHandler& handler) {
 }
 
 void NodeEvents::Emit(const detail::node& node, EventHandler& handler,
-                      AliasManager& am) const {
+                      AliasManager& am, bool isBlockStyle) const {
   anchor_t anchor = NullAnchor;
   if (IsAliased(node)) {
     anchor = am.LookupAnchor(node);
@@ -78,15 +78,15 @@ void NodeEvents::Emit(const detail::node& node, EventHandler& handler,
       handler.OnSequenceStart(Mark(), node.tag(), anchor, node.style());
       for (auto element : node)
         Emit(*element, handler, am);
-      handler.OnSequenceEnd();
+      handler.OnSequenceEnd(isBlockStyle);
       break;
     case NodeType::Map:
       handler.OnMapStart(Mark(), node.tag(), anchor, node.style());
       for (auto element : node) {
         Emit(*element.first, handler, am);
-        Emit(*element.second, handler, am);
+        Emit(*element.second, handler, am, element.second->style() == EmitterStyle::Block);
       }
-      handler.OnMapEnd();
+      handler.OnMapEnd(isBlockStyle);
       break;
   }
 }

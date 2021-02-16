@@ -53,7 +53,7 @@ class NodeEvents {
 
   void Setup(const detail::node& node);
   void Emit(const detail::node& node, EventHandler& handler,
-            AliasManager& am) const;
+            AliasManager& am, bool isBlockStyle = false) const;
   bool IsAliased(const detail::node& node) const;
 
  private:

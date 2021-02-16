@@ -29,11 +29,11 @@ class EventHandler {
 
   virtual void OnSequenceStart(const Mark& mark, const std::string& tag,
                                anchor_t anchor, EmitterStyle::value style) = 0;
-  virtual void OnSequenceEnd() = 0;
+  virtual void OnSequenceEnd(bool isBlockStyle = false) = 0;
 
   virtual void OnMapStart(const Mark& mark, const std::string& tag,
                           anchor_t anchor, EmitterStyle::value style) = 0;
-  virtual void OnMapEnd() = 0;
+  virtual void OnMapEnd(bool isBlockStyle = false) = 0;
 
   virtual void OnAnchor(const Mark& /*mark*/,
                         const std::string& /*anchor_name*/) {

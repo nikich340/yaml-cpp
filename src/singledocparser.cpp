@@ -63,7 +63,7 @@ void SingleDocParser::HandleNode(EventHandler& eventHandler) {
   if (m_scanner.peek().type == Token::VALUE) {
     eventHandler.OnMapStart(mark, "?", NullAnchor, EmitterStyle::Default);
     HandleMap(eventHandler);
-    eventHandler.OnMapEnd();
+    eventHandler.OnMapEnd(false);
     return;
   }
 
@@ -111,22 +111,22 @@ void SingleDocParser::HandleNode(EventHandler& eventHandler) {
     case Token::FLOW_SEQ_START:
       eventHandler.OnSequenceStart(mark, tag, anchor, EmitterStyle::Flow);
       HandleSequence(eventHandler);
-      eventHandler.OnSequenceEnd();
+      eventHandler.OnSequenceEnd(false);
       return;
     case Token::BLOCK_SEQ_START:
       eventHandler.OnSequenceStart(mark, tag, anchor, EmitterStyle::Block);
       HandleSequence(eventHandler);
-      eventHandler.OnSequenceEnd();
+      eventHandler.OnSequenceEnd(true);
       return;
     case Token::FLOW_MAP_START:
       eventHandler.OnMapStart(mark, tag, anchor, EmitterStyle::Flow);
       HandleMap(eventHandler);
-      eventHandler.OnMapEnd();
+      eventHandler.OnMapEnd(false);
       return;
     case Token::BLOCK_MAP_START:
       eventHandler.OnMapStart(mark, tag, anchor, EmitterStyle::Block);
       HandleMap(eventHandler);
-      eventHandler.OnMapEnd();
+      eventHandler.OnMapEnd(true);
       return;
     case Token::KEY:
       // compact maps can only go in a flow sequence
@@ -134,7 +134,7 @@ void SingleDocParser::HandleNode(EventHandler& eventHandler) {
           CollectionType::FlowSeq) {
         eventHandler.OnMapStart(mark, tag, anchor, EmitterStyle::Flow);
         HandleMap(eventHandler);
-        eventHandler.OnMapEnd();
+        eventHandler.OnMapEnd(false);
         return;
       }
       break;

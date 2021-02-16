@@ -34,11 +34,11 @@ class EmitFromEvents : public EventHandler {
 
   void OnSequenceStart(const Mark& mark, const std::string& tag,
                                anchor_t anchor, EmitterStyle::value style) override;
-  void OnSequenceEnd() override;
+  void OnSequenceEnd(bool isBlockStyle = false) override;
 
   void OnMapStart(const Mark& mark, const std::string& tag,
                           anchor_t anchor, EmitterStyle::value style) override;
-  void OnMapEnd() override;
+  void OnMapEnd(bool isBlockStyle = false) override;
 
  private:
   void BeginNode();

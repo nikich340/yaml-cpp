@@ -40,6 +40,7 @@ class YAML_CPP_API ostream_wrapper {
   std::size_t row() const { return m_row; }
   std::size_t col() const { return m_col; }
   std::size_t pos() const { return m_pos; }
+  bool wasNewline() const { return m_wasNewline; }
   bool comment() const { return m_comment; }
 
  private:
@@ -51,7 +52,7 @@ class YAML_CPP_API ostream_wrapper {
 
   std::size_t m_pos;
   std::size_t m_row, m_col;
-  bool m_comment;
+  bool m_comment, m_wasNewline;
 };
 
 template <std::size_t N>

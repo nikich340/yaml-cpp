@@ -52,11 +52,13 @@ void ostream_wrapper::write(const char* str, std::size_t size) {
 void ostream_wrapper::update_pos(char ch) {
   m_pos++;
   m_col++;
+  m_wasNewline = false;
 
   if (ch == '\n') {
     m_row++;
     m_col = 0;
     m_comment = false;
+	m_wasNewline = true;
   }
 }
 }  // namespace YAML

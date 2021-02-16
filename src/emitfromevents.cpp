@@ -65,7 +65,10 @@ void EmitFromEvents::OnSequenceStart(const Mark&, const std::string& tag,
   m_stateStack.push(State::WaitingForSequenceEntry);
 }
 
-void EmitFromEvents::OnSequenceEnd() {
+void EmitFromEvents::OnSequenceEnd(bool isBlockStyle) {
+  if (isBlockStyle) {
+      m_emitter << Newline;
+  }
   m_emitter << EndSeq;
   assert(m_stateStack.top() == State::WaitingForSequenceEntry);
   m_stateStack.pop();
@@ -91,7 +94,10 @@ void EmitFromEvents::OnMapStart(const Mark&, const std::string& tag,
   m_stateStack.push(State::WaitingForKey);
 }
 
-void EmitFromEvents::OnMapEnd() {
+void EmitFromEvents::OnMapEnd(bool isBlockStyle) {
+  if (isBlockStyle) {
+      m_emitter << Newline;
+  }
   m_emitter << EndMap;
   assert(m_stateStack.top() == State::WaitingForKey);
   m_stateStack.pop();

@@ -37,7 +37,7 @@ void GraphBuilderAdapter::OnSequenceStart(const Mark &mark,
   RegisterAnchor(anchor, pNode);
 }
 
-void GraphBuilderAdapter::OnSequenceEnd() {
+void GraphBuilderAdapter::OnSequenceEnd(bool isBlockStyle) {
   void *pSequence = m_containers.top().pContainer;
   m_containers.pop();
 
@@ -53,7 +53,7 @@ void GraphBuilderAdapter::OnMapStart(const Mark &mark, const std::string &tag,
   RegisterAnchor(anchor, pNode);
 }
 
-void GraphBuilderAdapter::OnMapEnd() {
+void GraphBuilderAdapter::OnMapEnd(bool isBlockStyle) {
   void *pMap = m_containers.top().pContainer;
   m_pKeyNode = m_containers.top().pPrevKeyNode;
   m_containers.pop();
